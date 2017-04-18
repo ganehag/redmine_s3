@@ -26,7 +26,7 @@ module RedmineS3
         load_options unless @@s3_options[:access_key_id] && @@s3_options[:secret_access_key]
         options = {}
         options[:access_key_id] = @@s3_options[:access_key_id] if @@s3_options[:access_key_id].present?
-        options[:access_key_id] = @@s3_options[:secret_access_key] if @@s3_options[:secret_access_key].present?
+        options[:secret_access_key] = @@s3_options[:secret_access_key] if @@s3_options[:secret_access_key].present?
         options[:region] = 'ap-northeast-1' if self.region.nil?
 
         @client = Aws::S3::Client.new(options)
