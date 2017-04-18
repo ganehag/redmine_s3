@@ -24,12 +24,10 @@ module RedmineS3
 
       def establish_connection
         load_options unless @@s3_options[:access_key_id] && @@s3_options[:secret_access_key]
-        options = {
-          :access_key_id => @@s3_options[:access_key_id],
-          :secret_access_key => @@s3_options[:secret_access_key]
-        }
+        options = {}
+        options[:access_key_id] = @@s3_options[:access_key_id] if @@s3_options[:access_key_id].present?
+        options[:access_key_id] = @@s3_options[:secret_access_key] if @@s3_options[:secret_access_key].present?
         options[:region] = 'ap-northeast-1' if self.region.nil?
-        options.delete_if { |k, v| v.blank? }
 
         @client = Aws::S3::Client.new(options)
       end
