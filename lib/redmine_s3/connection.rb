@@ -29,6 +29,7 @@ module RedmineS3
           :secret_access_key => @@s3_options[:secret_access_key]
         }
         options[:region] = 'ap-northeast-1' if self.region.nil?
+        options.delete_if { |k, v| v.blank? }
 
         @client = Aws::S3::Client.new(options)
       end
