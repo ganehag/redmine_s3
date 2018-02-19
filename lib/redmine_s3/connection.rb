@@ -31,7 +31,7 @@ module RedmineS3
         options[:secret_access_key] = @@s3_options[:secret_access_key] if @@s3_options[:secret_access_key].present?
         options[:region] = 'ap-northeast-1' if self.region.nil?
         options[:endpoint] = self.endpoint unless self.endpoint.nil?
-        options[:force_path_style] = self.force_path_style
+        options[:force_path_style] = self.force_path_style unless self.force_path_style.nil?
 
         @client = Aws::S3::Client.new(options)
       end
@@ -81,7 +81,7 @@ module RedmineS3
         @@s3_options[:proxy]
       end
 
-      def force_path_style?
+      def force_path_style
         @@s3_options[:force_path_style]
       end
 
