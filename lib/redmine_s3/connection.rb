@@ -8,6 +8,7 @@ module RedmineS3
       :secret_access_key => nil,
       :bucket            => nil,
       :folder            => '',
+      :endpoint          => nil,
       :private           => false,
       :expires           => nil,
       :proxy             => false,
@@ -28,6 +29,7 @@ module RedmineS3
         options[:access_key_id] = @@s3_options[:access_key_id] if @@s3_options[:access_key_id].present?
         options[:secret_access_key] = @@s3_options[:secret_access_key] if @@s3_options[:secret_access_key].present?
         options[:region] = 'ap-northeast-1' if self.region.nil?
+        options[:endpoint] = self.endpoint unless self.endpoint.nil?
 
         @client = Aws::S3::Client.new(options)
       end
@@ -54,6 +56,11 @@ module RedmineS3
           ''
         end
       end
+
+      def endpoint
+        @@s3_options[:endpoint]
+      end
+
 
       def region
         @@s3_options[:region]
